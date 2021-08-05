@@ -51,6 +51,28 @@ public class ConfigUtil
         return config;
     }
 
+    public static Config loadScriptConfig(Plugin plugin, String configName)
+    {
+        File pluginDataFolder = plugin.getDataFolder();
+        if (!pluginDataFolder.exists()) pluginDataFolder.mkdir();
+        File scriptFolder = new File(pluginDataFolder, "scripts");
+        if (!scriptFolder.exists()) scriptFolder.mkdir();
+        File scriptConfig = new File (scriptFolder, configName);
+        if (!scriptConfig.exists())
+        {
+            try
+            {
+                scriptConfig.createNewFile();
+            }catch (Exception e)
+            {
+                plugin.getLogger().info("创建" + scriptConfig.toString() + "文件失败");
+                plugin.getLogger().info(e.toString());
+            }
+        }
+        Config config = new Config(scriptFolder, scriptConfig, YamlConfiguration.loadConfiguration(scriptConfig));
+        return config;
+    }
+
     public static Config loadConfig(Plugin plugin, String configName)
     {
         File pluginDataFolder = plugin.getDataFolder();
