@@ -33,7 +33,7 @@ public class VarManager
         return nowPlayerVar;
     }
 
-    public void setPlayerVarHashMap(String key, PlayerVar val)
+    private void setPlayerVarHashMap(String key, PlayerVar val)
     {
         if (playerVarHashMap.containsKey(key))
         {

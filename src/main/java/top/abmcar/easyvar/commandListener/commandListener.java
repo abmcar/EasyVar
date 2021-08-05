@@ -114,7 +114,7 @@ public class commandListener implements CommandExecutor
                     Integer oldVal = EasyVar.getVarManager().getGlobalValue(nowKey);
                     Integer newVal = nowVal + oldVal;
                     String nowMessage = "全局变量 " + nowKey + " : " + oldVal + " -> " + newVal;
-                    EasyVar.getVarManager().setGlobalValue(nowKey, newVal);
+                    EasyVar.getVarManager().addGlobalValue(nowKey, nowVal);
                     MessageSender.sendMessage(commandSender, nowMessage);
                     return true;
                 }
@@ -128,7 +128,7 @@ public class commandListener implements CommandExecutor
                     Integer oldVal = EasyVar.getVarManager().getGlobalValue(nowKey);
                     Integer newVal = oldVal - nowVal;
                     String nowMessage = "全局变量 " + nowKey + " : " + oldVal + " -> " + newVal;
-                    EasyVar.getVarManager().setGlobalValue(nowKey, newVal);
+                    EasyVar.getVarManager().reduceGlobalValue(nowKey, nowVal);
                     MessageSender.sendMessage(commandSender, nowMessage);
                     return true;
                 }
@@ -158,7 +158,7 @@ public class commandListener implements CommandExecutor
                     Integer nowVal = Integer.parseInt(strings[4]);
                     Integer oldVal = EasyVar.getVarManager().getPlayerValue(nowPlayerName, nowVarName);
                     Integer newVal = oldVal + nowVal;
-                    EasyVar.getVarManager().setPlayerValue(nowPlayerName, nowVarName, newVal);
+                    EasyVar.getVarManager().addPlayerValue(nowPlayerName, nowVarName, nowVal);
                     String nowMessage = "玩家 " + nowPlayerName + " 的变量 " + nowVarName + " : " + oldVal + " -> " + newVal + "\n";
                     MessageSender.sendMessage(commandSender, nowMessage);
                     return true;
@@ -173,7 +173,7 @@ public class commandListener implements CommandExecutor
                     Integer nowVal = Integer.parseInt(strings[4]);
                     Integer oldVal = EasyVar.getVarManager().getPlayerValue(nowPlayerName, nowVarName);
                     Integer newVal = oldVal - nowVal;
-                    EasyVar.getVarManager().setPlayerValue(nowPlayerName, nowVarName, newVal);
+                    EasyVar.getVarManager().reducePlayerValue(nowPlayerName, nowVarName, nowVal);
                     String nowMessage = "玩家 " + nowPlayerName + " 的变量 " + nowVarName + " : " + oldVal + " -> " + newVal + "\n";
                     MessageSender.sendMessage(commandSender, nowMessage);
                     return true;
