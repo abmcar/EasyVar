@@ -1,0 +1,11 @@
+name: EasyVar
+version: 1.0-SNAPSHOT
+main: top.abmcar.easyvar.EasyVar
+api-version: 1.17
+authors: [ Abmcar ]
+description: 简单设置变量并根据变量的值执行指令
+commands:
+  ev:
+    description: EasyVar
+    usage: 输入/ev help 获取使用帮助
+    permission: op
