@@ -28,7 +28,7 @@ public class commandListener implements CommandExecutor
             if (strings[0].equalsIgnoreCase("help"))
             {
                 String nowMessage1 = "&7使用&b/ev show player <playerName>&f查看该玩家拥有变量,playerName为玩家名字\n";
-                String nowMessage2 = "&7使用&b/ev global&f来查看全局变量\n";
+                String nowMessage2 = "&7使用&b/ev show global&f来查看全局变量\n";
                 String nowMessage3 = "&7使用&b/ev set player <playerName> <varName> <varValue>&f修改玩家变量\n";
                 String nowMessage4 = "&7使用&b/ev set global <varName> <varValue>&f修改全局变量\n";
                 String nowMessage5 = "&7使用&b/ev add player <playerName> <varName> <varValue>&f增加玩家变量\n";
