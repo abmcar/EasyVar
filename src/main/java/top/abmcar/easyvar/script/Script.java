@@ -1,5 +1,7 @@
 package top.abmcar.easyvar.script;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import top.abmcar.easyvar.EasyVar;
@@ -11,7 +13,7 @@ import top.abmcar.easyvar.var.PlayerVar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class script
+public class Script
 {
     private Config config;
     private String scriptName;
@@ -22,6 +24,7 @@ public class script
     private String varName;
     private Integer requireVal;
     private EasyVar plugin;
+    private boolean newScript = true;
 
     private void setScriptName(String scriptName)
     {
@@ -35,25 +38,49 @@ public class script
         commands = nowConfig.getStringList("commands");
         requireVal = nowConfig.getInt("requireValue");
         varType = nowConfig.getString("varType");
+        varName = nowConfig.getString("varName");
         isOp = nowConfig.getBoolean("isOp");
+        if (varType == null)
+            newScript = true;
+        else
+        if (varType.length() > 0)
+            newScript = false;
 
     }
 
-    public void executeCommand(Player player)
+    public boolean isNewScript()
     {
-        if (isOp)
+        return newScript;
+    }
+
+    public void setNewScript()
+    {
+        newScript = false;
+    }
+
+    public void executeCommand(CommandSender commandSender)
+    {
+        if (commandSender instanceof Player)
         {
-            boolean playerOp = player.isOp();
-            if (!playerOp)
-                player.setOp(true);
-            for (String nowCommand : commands)
-                player.performCommand(nowCommand);
-            if (!playerOp)
-                player.setOp(false);
+            Player player = (Player) commandSender;
+            if (isOp)
+            {
+                boolean playerOp = player.isOp();
+                if (!playerOp)
+                    player.setOp(true);
+                for (String nowCommand : commands)
+                    player.performCommand(nowCommand);
+                if (!playerOp)
+                    player.setOp(false);
+            }else
+            {
+                for (String nowCommand : commands)
+                    player.performCommand(nowCommand);
+            }
         }else
         {
             for (String nowCommand : commands)
-                player.performCommand(nowCommand);
+                Bukkit.dispatchCommand(commandSender, nowCommand);
         }
     }
 
@@ -91,24 +118,28 @@ public class script
     public void setVarType(String varType)
     {
         config.getConfigYaml().set("varType",varType);
+        this.varType = varType;
         saveFile();
     }
 
     public void setVarName(String varName)
     {
         config.getConfigYaml().set("varName",varName);
+        this.varName = varName;
         saveFile();
     }
 
     public void setRequireVal(Integer requireVal)
     {
         config.getConfigYaml().set("requireValue",requireVal);
+        this.requireVal = requireVal;
         saveFile();
     }
 
     public void setOp(boolean op)
     {
         config.getConfigYaml().set("isOp",op);
+        this.isOp = op;
         saveFile();
     }
 
@@ -133,16 +164,23 @@ public class script
         saveFile();
     }
 
+    public List<String> getCommands()
+    {
+        return commands;
+    }
+
     public void saveFile()
     {
         ConfigUtil.saveFile(config);
     }
 
-    public script(String scriptName)
+    public Script(String scriptName)
     {
+        setScriptName(scriptName);
         plugin = EasyVar.getPlugin();
         commands = new ArrayList<>();
         setScriptName(scriptName);
         loadFile();
+        saveFile();
     }
 }

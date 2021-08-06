@@ -12,7 +12,7 @@ import java.util.List;
 
 public class GlobalVar
 {
-    private static HashMap<String,Integer> integerHashMap = new HashMap<String,Integer>();
+    private static HashMap<String, Integer> integerHashMap = new HashMap<String, Integer>();
     private static String varType = "globalVar";
     private static Config config;
     private static List<String> varList;
@@ -21,27 +21,28 @@ public class GlobalVar
     {
         if (!integerHashMap.containsKey(key))
         {
-            setValue(key,0);
+            setValue(key, 0);
         }
         return integerHashMap.get(key);
     }
 
     public static void setValue(String key, Integer value)
     {
+        loadFile();
         if (integerHashMap.containsKey(key))
         {
             integerHashMap.remove(key);
-        }else
+        } else
         {
             varList.add(key);
-            config.getConfigYaml().set("varlist",varList);
-            config.getConfigYaml().set(key,value);
+            config.getConfigYaml().set("varlist", varList);
+            config.getConfigYaml().set(key, value);
             saveFile();
         }
-        integerHashMap.put(key,value);
+        integerHashMap.put(key, value);
     }
 
-    public static HashMap<String,Integer> getMap()
+    public static HashMap<String, Integer> getMap()
     {
         return integerHashMap;
     }
@@ -54,7 +55,7 @@ public class GlobalVar
         for (String nowVar : varList)
         {
             int varVal = yamlConfiguration.getInt(nowVar);
-            integerHashMap.put(nowVar,varVal);
+            integerHashMap.put(nowVar, varVal);
         }
     }
 
