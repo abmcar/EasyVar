@@ -8,4 +8,3 @@ commands:
   ev:
     description: EasyVar
     usage: 输入/ev help 获取使用帮助
-    permission: op

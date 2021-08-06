@@ -66,6 +66,12 @@ public class commandListener implements CommandExecutor
         {
             if (strings[0].equals("show"))
             {
+                if (!commandSender.hasPermission("ev.var.show"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                    return true;
+                }
                 if (strings[1].equalsIgnoreCase("global"))
                 {
                     String nowMessage0 = "&a全局变量:";
@@ -89,6 +95,11 @@ public class commandListener implements CommandExecutor
         {
             if (strings[0].equalsIgnoreCase("show"))
             {
+                if (!commandSender.hasPermission("ev.var.show"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
                     PlayerVar nowPlayerVar = EasyVar.getVarManager().getPlayerVars(strings[2]);
@@ -115,6 +126,11 @@ public class commandListener implements CommandExecutor
         {
             if (strings[0].equalsIgnoreCase("set"))
             {
+                if (!commandSender.hasPermission("ev.var.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                }
                 if (strings[1].equalsIgnoreCase("global"))
                 {
                     String nowKey = strings[2];
@@ -127,6 +143,11 @@ public class commandListener implements CommandExecutor
             }
             if (strings[0].equalsIgnoreCase("add"))
             {
+                if (!commandSender.hasPermission("ev.var.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                }
                 if (strings[1].equalsIgnoreCase("global"))
                 {
                     String nowKey = strings[2];
@@ -141,6 +162,11 @@ public class commandListener implements CommandExecutor
             }
             if (strings[0].equalsIgnoreCase("reduce"))
             {
+                if (!commandSender.hasPermission("ev.var.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                }
                 if (strings[1].equalsIgnoreCase("global"))
                 {
                     String nowKey = strings[2];
@@ -158,6 +184,11 @@ public class commandListener implements CommandExecutor
         {
             if (strings[0].equalsIgnoreCase("set"))
             {
+                if (!commandSender.hasPermission("ev.var.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
                     String nowPlayerName = strings[2];
@@ -171,6 +202,11 @@ public class commandListener implements CommandExecutor
             }
             if (strings[0].equalsIgnoreCase("add"))
             {
+                if (!commandSender.hasPermission("ev.var.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
                     String nowPlayerName = strings[2];
@@ -186,6 +222,11 @@ public class commandListener implements CommandExecutor
             }
             if (strings[0].equalsIgnoreCase("reduce"))
             {
+                if (!commandSender.hasPermission("ev.var.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
                     String nowPlayerName = strings[2];
@@ -200,15 +241,18 @@ public class commandListener implements CommandExecutor
                 }
             }
         }
-//            String nowMessage11 = "&7例如&b/ev script set Abmcar test1 10 false &f当玩家Abmcar的变量test1大于等于10时以自身权限执行命令\n";
-//            String nowMessage12 = "&7使用&b/ev script add <scriptName> <command>&f添加脚本执行命令\n";
-//            String nowMessage13 = "&7使用&b/ev script delete <scriptName> <command>&f删除脚本执行命令\n";
         if (strings.length == 7)
         {
             if (!strings[0].equalsIgnoreCase("script"))
                 return false;
             if (strings[1].equalsIgnoreCase("set"))
             {
+                if (!commandSender.hasPermission("ev.script.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                    return true;
+                }
                 String scriptName = strings[2];
                 String varType = strings[3];
                 String varName = strings[4];
@@ -228,6 +272,12 @@ public class commandListener implements CommandExecutor
                 return false;
             if (strings[1].equalsIgnoreCase("add"))
             {
+                if (!commandSender.hasPermission("ev.script.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                    return true;
+                }
                 String scriptName = strings[2];
                 String nowCommand = strings[3];
                 if (ScriptManager.addScriptCommand(scriptName, nowCommand))
@@ -244,6 +294,12 @@ public class commandListener implements CommandExecutor
 
             if (strings[1].equalsIgnoreCase("delete"))
             {
+                if (!commandSender.hasPermission("ev.script.set"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                    return true;
+                }
                 String scriptName = strings[2];
                 String nowCommand = strings[3];
                 if (ScriptManager.deleteCommand(scriptName, nowCommand))
@@ -260,10 +316,17 @@ public class commandListener implements CommandExecutor
         }
         if (strings.length == 3)
         {
+
             if (!strings[0].equalsIgnoreCase("script"))
                 return false;
             if (strings[1].equalsIgnoreCase("show"))
             {
+                if (!commandSender.hasPermission("ev.script.show"))
+                {
+                    String nowString = "权限不足";
+                    MessageSender.sendMessage(commandSender, nowString);
+                    return true;
+                }
                 String scriptName = strings[2];
                 ScriptManager.showCommands(commandSender, scriptName);
                 return true;
