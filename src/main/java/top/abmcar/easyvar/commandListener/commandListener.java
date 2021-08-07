@@ -10,6 +10,7 @@ import org.bukkit.plugin.Plugin;
 import top.abmcar.easyvar.EasyVar;
 import top.abmcar.easyvar.messageSender.MessageSender;
 import top.abmcar.easyvar.script.ScriptManager;
+import top.abmcar.easyvar.stringUtil.StringUtil;
 import top.abmcar.easyvar.var.GlobalVar;
 import top.abmcar.easyvar.var.PlayerVar;
 
@@ -43,6 +44,8 @@ public class commandListener implements CommandExecutor
                 String nowMessage14 = "&7命令中的空格请用_代替,例如&b/ev script delete testScript ev_show_global\n";
                 String nowMessage15 = "&7使用&b/ev script show <scriptName> &f查看脚本执行命令\n";
                 String nowMessage16 = "&7使用&b/ev script run <scriptName> &f执行脚本\n";
+                String nowMessage17 = "&7<player>为占位符,表示执行命令的玩家的名字\n";
+                String nowMessage18 = "&7例如&b/ev add player <player> testVar 1 &f给自己的testVar变量加1\n";
                 MessageSender.sendMessage(commandSender, nowMessage1);
                 MessageSender.sendMessage(commandSender, nowMessage2);
                 MessageSender.sendMessage(commandSender, nowMessage3);
@@ -59,6 +62,8 @@ public class commandListener implements CommandExecutor
                 MessageSender.sendMessage(commandSender, nowMessage14);
                 MessageSender.sendMessage(commandSender, nowMessage15);
                 MessageSender.sendMessage(commandSender, nowMessage16);
+                MessageSender.sendMessage(commandSender, nowMessage17);
+                MessageSender.sendMessage(commandSender, nowMessage18);
                 return true;
             }
         }
@@ -99,6 +104,7 @@ public class commandListener implements CommandExecutor
                 {
                     String nowString = "权限不足";
                     MessageSender.sendMessage(commandSender, nowString);
+                    return true;
                 }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
@@ -130,6 +136,7 @@ public class commandListener implements CommandExecutor
                 {
                     String nowString = "权限不足";
                     MessageSender.sendMessage(commandSender, nowString);
+                    return true;
                 }
                 if (strings[1].equalsIgnoreCase("global"))
                 {
@@ -147,6 +154,7 @@ public class commandListener implements CommandExecutor
                 {
                     String nowString = "权限不足";
                     MessageSender.sendMessage(commandSender, nowString);
+                    return true;
                 }
                 if (strings[1].equalsIgnoreCase("global"))
                 {
@@ -166,6 +174,7 @@ public class commandListener implements CommandExecutor
                 {
                     String nowString = "权限不足";
                     MessageSender.sendMessage(commandSender, nowString);
+                    return true;
                 }
                 if (strings[1].equalsIgnoreCase("global"))
                 {
@@ -188,10 +197,16 @@ public class commandListener implements CommandExecutor
                 {
                     String nowString = "权限不足";
                     MessageSender.sendMessage(commandSender, nowString);
+                    return true;
                 }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
                     String nowPlayerName = strings[2];
+                    if (nowPlayerName.equalsIgnoreCase("<player>") && commandSender instanceof Player)
+                    {
+                        Player player = (Player) commandSender;
+                        nowPlayerName = player.getName();
+                    }
                     String nowVarName = strings[3];
                     Integer nowVal = Integer.parseInt(strings[4]);
                     EasyVar.getVarManager().setPlayerValue(nowPlayerName, nowVarName, nowVal);
@@ -206,10 +221,16 @@ public class commandListener implements CommandExecutor
                 {
                     String nowString = "权限不足";
                     MessageSender.sendMessage(commandSender, nowString);
+                    return true;
                 }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
                     String nowPlayerName = strings[2];
+                    if (nowPlayerName.equalsIgnoreCase("<player>") && commandSender instanceof Player)
+                    {
+                        Player player = (Player) commandSender;
+                        nowPlayerName = player.getName();
+                    }
                     String nowVarName = strings[3];
                     Integer nowVal = Integer.parseInt(strings[4]);
                     Integer oldVal = EasyVar.getVarManager().getPlayerValue(nowPlayerName, nowVarName);
@@ -226,10 +247,16 @@ public class commandListener implements CommandExecutor
                 {
                     String nowString = "权限不足";
                     MessageSender.sendMessage(commandSender, nowString);
+                    return true;
                 }
                 if (strings[1].equalsIgnoreCase("player"))
                 {
                     String nowPlayerName = strings[2];
+                    if (nowPlayerName.equalsIgnoreCase("<player>") && commandSender instanceof Player)
+                    {
+                        Player player = (Player) commandSender;
+                        nowPlayerName = player.getName();
+                    }
                     String nowVarName = strings[3];
                     Integer nowVal = Integer.parseInt(strings[4]);
                     Integer oldVal = EasyVar.getVarManager().getPlayerValue(nowPlayerName, nowVarName);
@@ -280,6 +307,8 @@ public class commandListener implements CommandExecutor
                 }
                 String scriptName = strings[2];
                 String nowCommand = strings[3];
+                if (commandSender instanceof Player)
+                    nowCommand = StringUtil.Instance.getString(nowCommand,(Player) commandSender);
                 if (ScriptManager.addScriptCommand(scriptName, nowCommand))
                 {
                     String nowString = "已向 " + scriptName + " 添加命令： " + ScriptManager.getString(nowCommand);

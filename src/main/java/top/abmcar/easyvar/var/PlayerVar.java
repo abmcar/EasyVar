@@ -50,11 +50,10 @@ public class PlayerVar
         {
             varList.add(key);
             config.getConfigYaml().set("varlist",varList);
-            config.getConfigYaml().set(key,value);
-            saveFile();
-
         }
         integerHashMap.put(key,value);
+        config.getConfigYaml().set(key,value);
+        saveFile();
     }
 
     public HashMap<String,Integer> getMap()

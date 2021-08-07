@@ -36,10 +36,10 @@ public class GlobalVar
         {
             varList.add(key);
             config.getConfigYaml().set("varlist", varList);
-            config.getConfigYaml().set(key, value);
-            saveFile();
         }
         integerHashMap.put(key, value);
+        config.getConfigYaml().set(key, value);
+        saveFile();
     }
 
     public static HashMap<String, Integer> getMap()

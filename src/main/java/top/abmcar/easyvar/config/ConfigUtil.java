@@ -2,6 +2,7 @@ package top.abmcar.easyvar.config;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+import top.abmcar.easyvar.EasyVar;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,16 +16,20 @@ public class ConfigUtil
         if (!pluginDataFolder.exists()) pluginDataFolder.mkdir();
         if (!configFile.exists())
         {
-            try
-            {
-                configFile.createNewFile();
-            }catch (Exception e)
-            {
-                plugin.getLogger().info("创建" + configFile.toString() + "文件失败");
-                plugin.getLogger().info(e.toString());
-            }
+            EasyVar.getPlugin().saveResource(configName, true);
         }
         return YamlConfiguration.loadConfiguration(configFile);
+    }
+
+    public static void CreateBaseScript(Plugin plugin, String configName)
+    {
+        File pluginDataFolder = plugin.getDataFolder();
+        if (!pluginDataFolder.exists()) pluginDataFolder.mkdir();
+        File scriptFolder = new File(pluginDataFolder, "scripts");
+        if (!scriptFolder.exists()) scriptFolder.mkdir();
+        File scriptConfig = new File(scriptFolder, configName+".yml");
+        if (!scriptConfig.exists())
+            EasyVar.getPlugin().saveResource("scripts\\"+configName+".yml",true);
     }
 
     public static Config loadVarConfig(Plugin plugin, String varType, String configName)
@@ -41,7 +46,7 @@ public class ConfigUtil
             try
             {
                 configFile.createNewFile();
-            }catch (Exception e)
+            } catch (Exception e)
             {
                 plugin.getLogger().info("创建" + configFile.toString() + "文件失败");
                 plugin.getLogger().info(e.toString());
@@ -57,13 +62,13 @@ public class ConfigUtil
         if (!pluginDataFolder.exists()) pluginDataFolder.mkdir();
         File scriptFolder = new File(pluginDataFolder, "scripts");
         if (!scriptFolder.exists()) scriptFolder.mkdir();
-        File scriptConfig = new File (scriptFolder, configName);
+        File scriptConfig = new File(scriptFolder, configName);
         if (!scriptConfig.exists())
         {
             try
             {
                 scriptConfig.createNewFile();
-            }catch (Exception e)
+            } catch (Exception e)
             {
                 plugin.getLogger().info("创建" + scriptConfig.toString() + "文件失败");
                 plugin.getLogger().info(e.toString());
@@ -82,8 +87,11 @@ public class ConfigUtil
         {
             try
             {
-                configFile.createNewFile();
-            }catch (Exception e)
+                if (!configName.equalsIgnoreCase("config.yml"))
+                    configFile.createNewFile();
+                else
+                    EasyVar.getPlugin().saveResource(configName, true);
+            } catch (Exception e)
             {
                 plugin.getLogger().info("创建" + configFile.toString() + "文件失败");
                 plugin.getLogger().info(e.toString());

@@ -33,7 +33,7 @@ public class Script
 
     private void loadFile()
     {
-        config = ConfigUtil.loadScriptConfig(plugin,configName);
+        config = ConfigUtil.loadScriptConfig(plugin, configName);
         YamlConfiguration nowConfig = config.getConfigYaml();
         commands = nowConfig.getStringList("commands");
         requireVal = nowConfig.getInt("requireValue");
@@ -42,8 +42,7 @@ public class Script
         isOp = nowConfig.getBoolean("isOp");
         if (varType == null)
             newScript = true;
-        else
-        if (varType.length() > 0)
+        else if (varType.length() > 0)
             newScript = false;
 
     }
@@ -72,12 +71,12 @@ public class Script
                     player.performCommand(nowCommand);
                 if (!playerOp)
                     player.setOp(false);
-            }else
+            } else
             {
                 for (String nowCommand : commands)
                     player.performCommand(nowCommand);
             }
-        }else
+        } else
         {
             for (String nowCommand : commands)
                 Bukkit.dispatchCommand(commandSender, nowCommand);
@@ -93,7 +92,7 @@ public class Script
 
     private boolean runPlayerScript(String playerName, String varName)
     {
-        Integer nowValue = EasyVar.getVarManager().getPlayerValue(playerName,varName);
+        Integer nowValue = EasyVar.getVarManager().getPlayerValue(playerName, varName);
         return nowValue >= requireVal;
     }
 
@@ -103,9 +102,9 @@ public class Script
         if (varType.equalsIgnoreCase("global"))
         {
             successExecute = runGlobalScript(varName);
-        }else
+        } else
         {
-            successExecute =  runPlayerScript(varType,varName);
+            successExecute = runPlayerScript(varType, varName);
         }
         return successExecute;
     }
@@ -117,28 +116,28 @@ public class Script
 
     public void setVarType(String varType)
     {
-        config.getConfigYaml().set("varType",varType);
+        config.getConfigYaml().set("varType", varType);
         this.varType = varType;
         saveFile();
     }
 
     public void setVarName(String varName)
     {
-        config.getConfigYaml().set("varName",varName);
+        config.getConfigYaml().set("varName", varName);
         this.varName = varName;
         saveFile();
     }
 
     public void setRequireVal(Integer requireVal)
     {
-        config.getConfigYaml().set("requireValue",requireVal);
+        config.getConfigYaml().set("requireValue", requireVal);
         this.requireVal = requireVal;
         saveFile();
     }
 
     public void setOp(boolean op)
     {
-        config.getConfigYaml().set("isOp",op);
+        config.getConfigYaml().set("isOp", op);
         this.isOp = op;
         saveFile();
     }
@@ -150,7 +149,7 @@ public class Script
             if (command.equalsIgnoreCase(nowCommand))
             {
                 commands.remove(nowCommand);
-                config.getConfigYaml().set("commands",commands);
+                config.getConfigYaml().set("commands", commands);
                 return true;
             }
         }
@@ -160,7 +159,7 @@ public class Script
     public void addCommand(String command)
     {
         commands.add(command);
-        config.getConfigYaml().set("commands",commands);
+        config.getConfigYaml().set("commands", commands);
         saveFile();
     }
 
