@@ -16,7 +16,13 @@ public class ScriptManager
     public static boolean runScript(String scriptName, CommandSender commandSender)
     {
         Script script = new Script(scriptName);
-        boolean ok = script.run();
+        boolean ok;
+        if (commandSender instanceof Player && script.getVarType().equalsIgnoreCase("<player>"))
+        {
+            Player player = (Player) commandSender;
+            ok = script.run(player.getName());
+        }else
+            ok = script.run();
         if (ok)
             script.executeCommand(commandSender);
         return ok;
@@ -78,5 +84,6 @@ public class ScriptManager
         if (script.isNewScript())
             return false;
         return script.deleteCommand(command);
+//        script.saveFile();
     }
 }

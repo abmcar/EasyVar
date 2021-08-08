@@ -8,6 +8,7 @@ import top.abmcar.easyvar.EasyVar;
 import top.abmcar.easyvar.config.Config;
 import org.bukkit.plugin.Plugin;
 import top.abmcar.easyvar.config.ConfigUtil;
+import top.abmcar.easyvar.stringUtil.StringUtil;
 import top.abmcar.easyvar.var.PlayerVar;
 
 import java.util.ArrayList;
@@ -68,13 +69,19 @@ public class Script
                 if (!playerOp)
                     player.setOp(true);
                 for (String nowCommand : commands)
+                {
+                    nowCommand = StringUtil.Instance.getString(nowCommand,player);
                     player.performCommand(nowCommand);
+                }
                 if (!playerOp)
                     player.setOp(false);
             } else
             {
                 for (String nowCommand : commands)
+                {
+                    nowCommand = StringUtil.Instance.getString(nowCommand,player);
                     player.performCommand(nowCommand);
+                }
             }
         } else
         {
@@ -107,6 +114,23 @@ public class Script
             successExecute = runPlayerScript(varType, varName);
         }
         return successExecute;
+    }
+
+    public boolean run(String playerName)
+    {
+        boolean successExecute;
+        successExecute = runPlayerScript(playerName, varName);
+        return successExecute;
+    }
+
+    public String getVarType()
+    {
+        return varType;
+    }
+
+    public String getVarName()
+    {
+        return varName;
     }
 
     public void setscriptName(String scriptName)
@@ -150,6 +174,7 @@ public class Script
             {
                 commands.remove(nowCommand);
                 config.getConfigYaml().set("commands", commands);
+                saveFile();
                 return true;
             }
         }

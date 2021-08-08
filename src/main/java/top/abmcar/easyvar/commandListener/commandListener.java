@@ -307,8 +307,6 @@ public class commandListener implements CommandExecutor
                 }
                 String scriptName = strings[2];
                 String nowCommand = strings[3];
-                if (commandSender instanceof Player)
-                    nowCommand = StringUtil.Instance.getString(nowCommand,(Player) commandSender);
                 if (ScriptManager.addScriptCommand(scriptName, nowCommand))
                 {
                     String nowString = "已向 " + scriptName + " 添加命令： " + ScriptManager.getString(nowCommand);

@@ -7,12 +7,12 @@ import java.util.HashMap;
 
 public class VarManager
 {
-    private HashMap<String, PlayerVar> playerVarHashMap;
+//    private HashMap<String, PlayerVar> playerVarHashMap;
     private Plugin plugin;
 
     public VarManager()
     {
-        playerVarHashMap = new HashMap<String, PlayerVar>();
+//        playerVarHashMap = new HashMap<String, PlayerVar>();
         plugin = EasyVar.getPlugin();
         GlobalVar.loadFile();
     }
@@ -20,36 +20,37 @@ public class VarManager
     public PlayerVar getPlayerVars(String playerName)
     {
         PlayerVar nowPlayerVar = null;
-        for (String it : playerVarHashMap.keySet())
-        {
-            if (it.equals(playerName))
-            {
-                nowPlayerVar = playerVarHashMap.get(it);
-                break;
-            }
-        }
-        if (nowPlayerVar == null)
+//        for (String it : playerVarHashMap.keySet())
+//        {
+//            if (it.equals(playerName))
+//            {
+//                nowPlayerVar = playerVarHashMap.get(it);
+//                break;
+//            }
+//        }
+//        if (nowPlayerVar == null)
             nowPlayerVar = new PlayerVar(playerName);
         return nowPlayerVar;
     }
 
-    private void setPlayerVarHashMap(String key, PlayerVar val)
-    {
-        if (playerVarHashMap.containsKey(key))
-        {
-            playerVarHashMap.remove(key);
-        }
-        playerVarHashMap.put(key, val);
-    }
+//    private void setPlayerVarHashMap(String key, PlayerVar val)
+//    {
+//        if (playerVarHashMap.containsKey(key))
+//        {
+//            playerVarHashMap.remove(key);
+//        }
+//        playerVarHashMap.put(key, val);
+//    }
 
     public Integer getPlayerValue(String playerName, String varName)
     {
-        if (!playerVarHashMap.containsKey(playerName))
-        {
-            PlayerVar newPlayerVar = new PlayerVar(playerName);
-            playerVarHashMap.put(playerName, newPlayerVar);
-        }
-        PlayerVar nowPlayer = playerVarHashMap.get(playerName);
+//        if (!playerVarHashMap.containsKey(playerName))
+//        {
+//            PlayerVar newPlayerVar = new PlayerVar(playerName);
+//            playerVarHashMap.put(playerName, newPlayerVar);
+//        }
+//        PlayerVar nowPlayer = playerVarHashMap.get(playerName);
+        PlayerVar nowPlayer = getPlayerVars(playerName);
         Integer nowValue = nowPlayer.getValue(varName);
         return nowValue;
     }
@@ -68,7 +69,7 @@ public class VarManager
     {
         PlayerVar nowPlayerVar = getPlayerVars(playerName);
         nowPlayerVar.setValue(varName, value);
-        setPlayerVarHashMap(playerName, nowPlayerVar);
+//        setPlayerVarHashMap(playerName, nowPlayerVar);
     }
 
     public void addGlobalValue(String varName, Integer value)
@@ -80,7 +81,7 @@ public class VarManager
     {
         PlayerVar nowPlayerVar = getPlayerVars(playerName);
         nowPlayerVar.setValue(varName, getPlayerValue(playerName, varName) + value);
-        setPlayerVarHashMap(playerName, nowPlayerVar);
+//        setPlayerVarHashMap(playerName, nowPlayerVar);
     }
 
     public void reduceGlobalValue(String varName, Integer value)
@@ -92,16 +93,16 @@ public class VarManager
     {
         PlayerVar nowPlayerVar = getPlayerVars(playerName);
         nowPlayerVar.setValue(varName, getPlayerValue(playerName, varName) - value);
-        setPlayerVarHashMap(playerName, nowPlayerVar);
+//        setPlayerVarHashMap(playerName, nowPlayerVar);
     }
 
     public void save()
     {
-        for (String it : playerVarHashMap.keySet())
-        {
-            PlayerVar nowPlayerVar = playerVarHashMap.get(it);
-            nowPlayerVar.saveFile();
-        }
+//        for (String it : playerVarHashMap.keySet())
+//        {
+//            PlayerVar nowPlayerVar = playerVarHashMap.get(it);
+//            nowPlayerVar.saveFile();
+//        }
         GlobalVar.saveFile();
     }
 }
