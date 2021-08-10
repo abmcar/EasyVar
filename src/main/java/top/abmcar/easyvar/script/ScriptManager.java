@@ -48,7 +48,6 @@ public class ScriptManager
         }
         script.addCommand(command);
         script.saveFile();
-        ;
         return true;
     }
 

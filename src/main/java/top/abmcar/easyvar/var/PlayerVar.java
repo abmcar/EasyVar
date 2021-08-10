@@ -48,6 +48,7 @@ public class PlayerVar
             integerHashMap.remove(key);
         }else
         {
+            varList = config.getConfigYaml().getStringList("varlist");
             varList.add(key);
             config.getConfigYaml().set("varlist",varList);
         }

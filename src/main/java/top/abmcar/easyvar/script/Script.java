@@ -142,28 +142,24 @@ public class Script
     {
         config.getConfigYaml().set("varType", varType);
         this.varType = varType;
-        saveFile();
     }
 
     public void setVarName(String varName)
     {
         config.getConfigYaml().set("varName", varName);
         this.varName = varName;
-        saveFile();
     }
 
     public void setRequireVal(Integer requireVal)
     {
         config.getConfigYaml().set("requireValue", requireVal);
         this.requireVal = requireVal;
-        saveFile();
     }
 
     public void setOp(boolean op)
     {
         config.getConfigYaml().set("isOp", op);
         this.isOp = op;
-        saveFile();
     }
 
     public boolean deleteCommand(String command)
@@ -200,7 +196,6 @@ public class Script
 
     public Script(String scriptName)
     {
-        setScriptName(scriptName);
         plugin = EasyVar.getPlugin();
         commands = new ArrayList<>();
         setScriptName(scriptName);
