@@ -4,46 +4,28 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-public class Config
-{
+public class Config {
     private File configFile;
     private YamlConfiguration configYaml;
-    private File dataFolder;
 
-    public Config(File dataFolder, File configFile, YamlConfiguration configYaml)
-    {
-        setDataFolder(dataFolder);
+    public Config(File configFile, YamlConfiguration configYaml) {
         setConfigFile(configFile);
         setConfigYaml(configYaml);
     }
 
-    public File getDataFolder()
-    {
-        return dataFolder;
-    }
-
-    public void setDataFolder(File dataFolder)
-    {
-        this.dataFolder = dataFolder;
-    }
-
-    public YamlConfiguration getConfigYaml()
-    {
+    public YamlConfiguration getConfigYaml() {
         return configYaml;
     }
 
-    public void setConfigYaml(YamlConfiguration configYaml)
-    {
+    public void setConfigYaml(YamlConfiguration configYaml) {
         this.configYaml = configYaml;
     }
 
-    public File getConfigFile()
-    {
+    public File getConfigFile() {
         return configFile;
     }
 
-    public void setConfigFile(File configFile)
-    {
+    public void setConfigFile(File configFile) {
         this.configFile = configFile;
     }
 
