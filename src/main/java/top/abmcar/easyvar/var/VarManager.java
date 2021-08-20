@@ -27,12 +27,6 @@ public class VarManager {
     }
 
     public Integer getPlayerValue(String playerName, String varName) {
-//        if (!playerVarHashMap.containsKey(playerName))
-//        {
-//            PlayerVar newPlayerVar = new PlayerVar(playerName);
-//            playerVarHashMap.put(playerName, newPlayerVar);
-//        }
-//        PlayerVar nowPlayer = playerVarHashMap.get(playerName);
         PlayerVar nowPlayer = getPlayerVars(playerName);
         return nowPlayer.getValue(varName);
     }

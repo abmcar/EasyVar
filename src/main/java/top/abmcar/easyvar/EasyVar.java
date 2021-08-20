@@ -1,6 +1,7 @@
 package top.abmcar.easyvar;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.abmcar.easyvar.command.CommandListener;
 import top.abmcar.easyvar.command.DisplayCommandListener;
@@ -16,6 +17,7 @@ public final class EasyVar extends JavaPlugin {
     private static EasyVar plugin;
     private static VarManager varManager;
     public EasyVarRunnable easyVarRunnable;
+    public static Plugin PlaceholderAPI = Bukkit.getPluginManager().getPlugin("PlaceholderAPI");
 
     @Override
     public void onEnable() {
@@ -26,6 +28,10 @@ public final class EasyVar extends JavaPlugin {
         Objects.requireNonNull(Bukkit.getPluginCommand("evdisplay")).setExecutor(new DisplayCommandListener());
         easyVarRunnable = new EasyVarRunnable();
         easyVarRunnable.runTaskTimer(this, 1, (int) (ConfigData.INSTANCE.runTaskTime * 20));
+        if (PlaceholderAPI != null)
+            getLogger().info("PlaceholderAPI √");
+        else
+            getLogger().info("PlaceholderAPI ×");
         this.getLogger().info("插件加载完成,Bug反馈+QQ1114654975");
         // Plugin startup login
     }

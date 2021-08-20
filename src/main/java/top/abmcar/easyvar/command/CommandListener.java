@@ -7,15 +7,21 @@ import org.bukkit.entity.Player;
 import top.abmcar.easyvar.EasyVar;
 import top.abmcar.easyvar.message.MessageSender;
 import top.abmcar.easyvar.script.ScriptManager;
+import top.abmcar.easyvar.util.PlaceholderUtil;
 import top.abmcar.easyvar.var.GlobalVar;
 import top.abmcar.easyvar.var.PlayerVar;
-import top.abmcar.easyvar.var.VarManager;
 
 import java.util.HashMap;
 
 public class CommandListener implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+        if (EasyVar.PlaceholderAPI != null)
+            if (commandSender instanceof Player) {
+                Player player = (Player) commandSender;
+                for (int i = 0; i < strings.length; i++)
+                    strings[i] = PlaceholderUtil.placeHolders(player, strings[i]);
+            }
         if (strings.length == 1) {
             if (strings[0].equalsIgnoreCase("help")) {
                 String nowMessage1 = "&7使用&b/ev show player <playerName>&f查看该玩家拥有变量,playerName为玩家名字";
@@ -116,7 +122,7 @@ public class CommandListener implements CommandExecutor {
                 if (strings[1].equalsIgnoreCase("global")) {
                     String nowKey = strings[2];
                     Integer nowVal = Integer.parseInt(strings[3]);
-                    EasyVar.getVarManager().setGlobalValue(nowKey,nowVal);
+                    EasyVar.getVarManager().setGlobalValue(nowKey, nowVal);
                     String nowMessage = "全局变量 " + nowKey + " 设置为 " + nowVal;
                     MessageSender.sendMessage(commandSender, nowMessage);
                     return true;

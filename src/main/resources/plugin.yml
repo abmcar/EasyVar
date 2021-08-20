@@ -3,6 +3,7 @@ version: ${project.version}
 main: top.abmcar.easyvar.EasyVar
 api-version: 1.17
 authors: [ Abmcar ]
+softdepend: [PlaceholderAPI]
 description: 简单设置变量并根据变量的值执行指令
 commands:
   ev:
