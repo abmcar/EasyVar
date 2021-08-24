@@ -35,10 +35,8 @@ public class PlayerVar {
     }
 
     public void setValue(String key, Integer value) {
-        if (integerHashMap.containsKey(key)) {
-            integerHashMap.remove(key);
-        } else {
-            varList = config.getConfigYaml().getStringList("varlist");
+        loadFile();
+        if (!integerHashMap.containsKey(key)) {
             varList.add(key);
             config.getConfigYaml().set("varlist", varList);
         }
@@ -54,7 +52,8 @@ public class PlayerVar {
     private void loadFile() {
         config = ConfigUtil.loadVarConfig(EasyVar.getPlugin(), varType, playerName + ".yml");
         YamlConfiguration yamlConfiguration = config.getConfigYaml();
-        List<String> varList = yamlConfiguration.getStringList("varlist");
+        varList = yamlConfiguration.getStringList("varlist");
+        integerHashMap.clear();
         for (String nowVar : varList) {
             int varVal = yamlConfiguration.getInt(nowVar);
             integerHashMap.put(nowVar, varVal);

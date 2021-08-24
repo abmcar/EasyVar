@@ -5,6 +5,7 @@ import top.abmcar.easyvar.EasyVar;
 import top.abmcar.easyvar.config.Config;
 import top.abmcar.easyvar.config.ConfigUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class GlobalVar {
     private static final HashMap<String, Integer> integerHashMap = new HashMap<>();
     private static final String varType = "globalVar";
     private static Config config;
-    private static List<String> varList;
+    private static List<String> varList = new ArrayList<>();
 
     public static Integer getValue(String key) {
         if (!integerHashMap.containsKey(key)) {
@@ -23,9 +24,7 @@ public class GlobalVar {
 
     public static void setValue(String key, Integer value) {
         loadFile();
-        if (integerHashMap.containsKey(key)) {
-            integerHashMap.remove(key);
-        } else {
+        if (!integerHashMap.containsKey(key)) {
             varList.add(key);
             config.getConfigYaml().set("varlist", varList);
         }
@@ -42,10 +41,9 @@ public class GlobalVar {
         config = ConfigUtil.loadVarConfig(EasyVar.getPlugin(), varType, "Global.yml");
         YamlConfiguration yamlConfiguration = config.getConfigYaml();
         varList = yamlConfiguration.getStringList("varlist");
-        for (String nowVar : varList) {
-            int varVal = yamlConfiguration.getInt(nowVar);
-            integerHashMap.put(nowVar, varVal);
-        }
+        integerHashMap.clear();
+        for (String string : varList)
+            integerHashMap.put(string, yamlConfiguration.getInt(string));
     }
 
     public static void saveFile() {
