@@ -11,14 +11,14 @@ public class VarManager {
     }
 
     public PlayerVar getPlayerVars(String playerName) {
-        PlayerVar nowPlayerVar;
-        if (playerVarHashMap.containsKey(playerName))
-            return playerVarHashMap.get(playerName);
-        else {
-            nowPlayerVar = new PlayerVar(playerName);
-            playerVarHashMap.put(playerName, nowPlayerVar);
-            return nowPlayerVar;
-        }
+        //        if (playerVarHashMap.containsKey(playerName))
+//            return playerVarHashMap.get(playerName);
+//        else {
+//            nowPlayerVar = new PlayerVar(playerName);
+//            playerVarHashMap.put(playerName, nowPlayerVar);
+//            return nowPlayerVar;
+//        }
+        return new PlayerVar(playerName);
     }
 
     private void setPlayerVarHashMap(String key, PlayerVar val) {
@@ -43,6 +43,7 @@ public class VarManager {
         PlayerVar nowPlayerVar = getPlayerVars(playerName);
         nowPlayerVar.setValue(varName, value);
         setPlayerVarHashMap(playerName, nowPlayerVar);
+        nowPlayerVar.saveFile();
     }
 
     public void addGlobalValue(String varName, Integer value) {
