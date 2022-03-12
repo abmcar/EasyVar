@@ -8,6 +8,7 @@ import top.abmcar.easyvar.command.DisplayCommandListener;
 import top.abmcar.easyvar.config.ConfigData;
 import top.abmcar.easyvar.config.ConfigUtil;
 import top.abmcar.easyvar.runnable.EasyVarRunnable;
+import top.abmcar.easyvar.util.PapiVar;
 import top.abmcar.easyvar.var.VarManager;
 
 import java.util.Objects;
@@ -28,10 +29,12 @@ public final class EasyVar extends JavaPlugin {
         Objects.requireNonNull(Bukkit.getPluginCommand("evdisplay")).setExecutor(new DisplayCommandListener());
         easyVarRunnable = new EasyVarRunnable();
         easyVarRunnable.runTaskTimer(this, 1, (int) (ConfigData.INSTANCE.runTaskTime * 20));
-        if (PlaceholderAPI != null)
+        if (PlaceholderAPI != null) {
             getLogger().info("PlaceholderAPI √");
-        else
+            new PapiVar().register();
+        } else {
             getLogger().info("PlaceholderAPI ×");
+        }
         this.getLogger().info("插件加载完成,Bug反馈+QQ1114654975");
         // Plugin startup login
     }
